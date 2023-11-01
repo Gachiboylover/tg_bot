@@ -39,7 +39,7 @@ async def db_get_all_id():
     return all_id
 
 async def db_del_old(trainings, u_id):
-    req = 'DELETE FROM trainings WHERE training = ? AND user_id = ?'
-    await cursor.executemany(req, trainings, u_id)
-    await db.commit()
+    for t in trainings:
+        await cursor.execute('DELETE FROM trainings WHERE training = ? AND user_id = ?', (t, u_id))
+        await db.commit()
     
