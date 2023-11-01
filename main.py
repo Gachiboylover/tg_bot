@@ -127,7 +127,7 @@ async def send_remind_cron(bot: Bot):
         trainings = await bot_data.db_show_all(i[0])
         trainings = t[0] for t in trainings if (date.fromisoformat(t[0].split()[0]) - date.today()).days == 0
         await bot.send_message(i[0], '\n'.join(user_format(t[0]) for t in trainings)
-        await 
+        await bot_data.db_del_old(trainings, i[0])
     
     
 async def start():
