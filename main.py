@@ -1,3 +1,8 @@
+import os
+import json
+import asyncio
+
+from dotenv import load_dotenv
 from aiogram import Bot, Dispatcher
 from aiogram.types import Message
 from aiogram.filters import Command
@@ -5,12 +10,14 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import StatesGroup, State
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from datetime import datetime, date
-import json
-import asyncio
 
 import commands
 import keyboards
 import bot_data
+
+load_dotenv()
+
+API_TOKEN = os.getenv('API_TOKEN')
 
 def user_format(training):
     training = training.split()
@@ -130,8 +137,8 @@ async def send_remind_cron(bot: Bot):
         await bot_data.db_del_old(trainings, i[0])
     
     
-async def start():
-    bot = Bot(token=':)')
+async def start(token):
+    bot = Bot(token=token)
     
     scheduler = AsyncIOScheduler(timezone='Europe/Moscow')
     scheduler.add_job(send_remind_cron, trigger='cron', hour = datetime.now().hour, minute = datetime.now().minute + 1, kwargs={'bot': bot})
@@ -156,4 +163,4 @@ async def start():
         await bot.session.close()
         
 if __name__ == '__main__':
-    asyncio.run(start())
+    asyncio.run(start(API_TOKEN))
