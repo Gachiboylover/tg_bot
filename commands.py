@@ -24,3 +24,4 @@ async def set_commands(bot: Bot):
             description='Посмотри, какие трени записаны.'
         )
     ]
+    bot.set_my_commands(commands)
