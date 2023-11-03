@@ -1,5 +1,4 @@
 import aiosqlite as sq
-from datetime import datetime
 
 async def db_connect():
     global db
