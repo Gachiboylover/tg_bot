@@ -54,11 +54,11 @@ class StepsForm(StatesGroup):
 async def start_bot(bot: Bot):
     await bot_data.db_connect()
     await commands.set_commands(bot)
-    await bot.send_message(1744005453, f'Бот запущен.')
+    await bot.send_message(1111, f'Бот запущен.')
     
     
 async def shutdown_bot(bot: Bot):
-    await bot.send_message(1744005453, f'Бот остановлен.')
+    await bot.send_message(1111, f'Бот остановлен.')
 
 
 async def get_start(message: Message, bot: Bot):
